@@ -40,8 +40,11 @@ class Verse
 
       @$dom->loadHTML('<?xml encoding="utf-8" ?>' . $html);
 
+      $verse = $dom->getElementsByTagName('a')[0];
+
       return [
-         'verse' => $dom->getElementsByTagName('a')[0]->textContent,
+         'href'  => $verse->getAttribute('href'),
+         'verse' => $verse->textContent,
          'text'  => $dom->getElementsByTagName('div')[0]->textContent
       ];
    }

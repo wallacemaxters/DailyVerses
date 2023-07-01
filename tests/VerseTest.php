@@ -12,6 +12,7 @@ class VerseTest extends \PHPUnit\Framework\TestCase
 
         $this->assertArrayHasKey('text', $result);
         $this->assertArrayHasKey('verse', $result);
+        $this->assertArrayHasKey('href', $result);
     }
 
     public function testRandom()
@@ -20,5 +21,8 @@ class VerseTest extends \PHPUnit\Framework\TestCase
 
         $this->assertArrayHasKey('text', $result);
         $this->assertArrayHasKey('verse', $result);
+        $this->assertArrayHasKey('href', $result);
+
+        var_dump($result);
     }
 }
