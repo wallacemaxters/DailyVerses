@@ -5,49 +5,40 @@ namespace WallaceMaxters\DailyVerses;
 use DOMDocument;
 
 /**
- * @version 
- * 	$url = 'http://dailyverses.net/get/verse?language=' . $language . '&date=' . $bibleVerseOfTheDay_currentDate . '&url=' . $_SERVER['HTTP_HOST'] . '&type=daily2_7_4';
+ * A small wrapper for dailyverses.net 
+ * 
+ * @author Wallace Vizerra<wallacemaxters@gmail.com>
  */
 class Verse 
 {   
    const BASE_URL = 'https://dailyverses.net/get';
 
-   /**
-    * @param string $language
-    * @return array
-    */
-   public static function ofTheDay(Version $language)
+   public static function ofTheDay(Version $version)
    {
-
-      return static::fetch(static::getUrl('verse', ['language' => $language->name]));
+      return static::fetch(static::getUrl('verse', ['language' => $version->name]));
    }
 
-   /**
-    * @param string $language
-    * @return array
-    */
-   public static function random($language)
+   public static function random(Version $version, ?int $random = null)
    {
       return static::fetch(
-         static::getUrl('random', compact('language'))
+         static::getUrl('random', [
+            'language' => $version->name, 
+            'ramdom'   => $random
+         ])
       );
    }
 
-
-   /**
-    * @param string $url
-    * @return array
-    */
    protected static function fetch(string $url): array
    {
       $ch = curl_init();
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
       curl_setopt($ch, CURLOPT_URL, $url);
-      $result = curl_exec($ch);
+      $html = curl_exec($ch);
       curl_close($ch);
 
       $dom = new DOMDocument('1.0', 'utf-8');
-      @$dom->loadHTML($result);
+
+      @$dom->loadHTML('<?xml encoding="utf-8" ?>' . $html);
 
       return [
          'verse' => $dom->getElementsByTagName('a')[0]->textContent,
@@ -55,10 +46,6 @@ class Verse
       ];
    }
 
-   /**
-    * @param string $language
-    * @return string
-    */
    protected static function getUrl(string $path, array $query = []): string
    {
       return static::BASE_URL . '/' . $path . '?' . http_build_query($query);

@@ -13,4 +13,12 @@ class VerseTest extends \PHPUnit\Framework\TestCase
         $this->assertArrayHasKey('text', $result);
         $this->assertArrayHasKey('verse', $result);
     }
+
+    public function testRandom()
+    {
+        $result = Verse::random(Version::ARC);
+
+        $this->assertArrayHasKey('text', $result);
+        $this->assertArrayHasKey('verse', $result);
+    }
 }
