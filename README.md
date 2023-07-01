@@ -1,6 +1,13 @@
 # WallaceMaxters/Dailyverses
 A PHP package to retrieve bible verses from dailyverses.net.
 
+## Instalation
+
+```bash
+composer require wallacemaxters/dailyverses
+```
+
+## Usage
 ```php
 use WallaceMaxters\DailyVerses\Verse;
 use WallaceMaxters\DailyVerses\Version;
