@@ -14,7 +14,7 @@ use WallaceMaxters\DailyVerses\Version;
 
 $result = Verse::ofTheDay(Version::NIV);
 
-echo $result['text;
+echo $result['text'];
 echo $result['verse'];
 echo $result['href'];
 ```
